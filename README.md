@@ -65,3 +65,5 @@ $ npm run test
 - Integration tests
 - Better `cors` handling for cookies
 - Assets for logos, icons and other UI components.
+- Search product functionality
+- Localisation (prices, and language)
