@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Cart Frontend
 
-First, run the development server:
+A NextJS application for retrieving products from fakestoreapi.com and creation of a shopping cart. This is in tandem with https://github.com/jfaylon/cart-backend
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Prerequisites
+
+- Node v18.17.1
+- NextJS 14.1.0
+- Usage of 127.0.0.1 instead of localhost.
+- Running the cart-backend
+
+## Installation
+
+- Clone the repository and perform
+
+```
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Add the ENVs to a `.env` file or copy the `.env.example` file
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+NEXT_PUBLIC_BACKEND_URL=http://127.0.0.1:8000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Running the Application
 
-## Learn More
+- Running in development mode 
 
-To learn more about Next.js, take a look at the following resources:
+```
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Running in production mode
+```
+npm run build && npm run start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The page is accessible by using `http://127.0.0.1:3000`
 
-## Deploy on Vercel
+## Unit Tests
+```bash
+# unit tests
+$ npm run test
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Pages
+- List of products
+- Product details
+- Cart page
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Tech limitations, Assumptions
+- NextJS was used because create-react-app is deprecated and it was recommended in react.dev (Source: https://react.dev/learn/start-a-new-react-project and https://dev.to/ag2byte/create-react-app-is-officially-dead-h7o)
+- There are known issues for Server side rendering for handling sessions. Thus, some components are Client components.
+- Node v18.17.1 and NextJS 14.1.0 were used in developing the application. There is no guarantee that it will work for versions other than the ones mentioned.
+- Please use `127.0.0.1` instead of localhost for the creation of the cookie. It is a known issue that the cookie is not created when using `localhost`.
+- The default port is 3000. There are no changes in port as the workaround for setting the port is hard coded in the package.json. Ideally the port should be modifiable via environment variables.
+
+## Possible Improvements
+- Better error handling
+- Better error logging
+- Integration tests
+- Better `cors` handling for cookies
+- Assets for logos, icons and other UI components.
