@@ -67,3 +67,4 @@ $ npm run test
 - Assets for logos, icons and other UI components.
 - Search product functionality
 - Localisation (prices, and language)
+- Empty Cart
