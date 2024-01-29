@@ -1,5 +1,11 @@
 import React from "react";
-import { render, screen, waitFor, act, fireEvent } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  act,
+  fireEvent,
+} from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import ProductPage from "@/app/products/[id]/page";
@@ -13,6 +19,10 @@ jest.mock("next/image", () => ({
   default: (props) => <img {...props} />,
 }));
 
+const mockCartData = [
+  { id: 1, title: "Product 1", price: 10.99, quantity: 2, image: "/test.jpg" },
+];
+
 const mockProductData = {
   id: 1,
   title: "Test Product",
@@ -25,23 +35,29 @@ mockAxios
   .onGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/products/1`)
   .reply(200, mockProductData);
 
-mockAxios.onPost(`${process.env.NEXT_PUBLIC_BACKEND_URL}/cart`).reply(200, {
+mockAxios
+  .onGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/cart`)
+  .reply(200, mockCartData);
+
+mockAxios.onPost(`${process.env.NEXT_PUBLIC_BACKEND_URL}/cart`).reply(200, [{
   quantity: 1,
   id: 1,
   title: "Test Product",
   description: "A test product description",
   price: 19.99,
   image: "test.jpg",
-});
+}]);
 
 describe("ProductPage", () => {
   it("renders product details correctly", async () => {
-    const result = await ProductPage({
-      params: {
-        id: 1,
-      },
+    const params = {
+      id: 1,
+    };
+    await act(async () => {
+      // Render the component
+      render(<ProductPage params={{ ...params }} />);
     });
-    render(result);
+
     await waitFor(() => screen.getByText("Test Product"));
 
     expect(screen.getByText("Test Product")).toBeInTheDocument();
@@ -49,7 +65,7 @@ describe("ProductPage", () => {
     expect(screen.getByText("Price: 19.99")).toBeInTheDocument();
     await act(() => {
       fireEvent.click(screen.getByText("Add to Cart"));
-    })
+    });
     expect(screen.getByText("Item Added Successfully")).toBeInTheDocument();
   });
 });

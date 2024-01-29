@@ -7,6 +7,8 @@ import { CART_TITLE } from "@/app/constants";
 
 const CartPage = ({ params }) => {
   const [cart, setCart] = useState([]);
+  const [cartCount, setCartCount] = useState(0);
+
   const updateCart = async () => {
     try {
       const response = await axios.get(
@@ -18,6 +20,10 @@ const CartPage = ({ params }) => {
 
       if (response.status === 200) {
         setCart(response.data);
+        const count = response.data.reduce((acc, item) => {
+          return acc + item.quantity;
+        }, 0);
+        setCartCount(count);
       } else {
         console.error("Failed to fetch cart data");
       }
@@ -39,7 +45,7 @@ const CartPage = ({ params }) => {
   return (
     <div className="flex flex-col h-screen">
       <div className="bg-black shadow-md z-10 leading-10">
-        <Header />
+        <Header cartCount={cartCount} />
       </div>
       <main className="flex min-h-screen flex-col items-center p-24 space-y-20">
         <p className="text-xl font-bold">{CART_TITLE}</p>

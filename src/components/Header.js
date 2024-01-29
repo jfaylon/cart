@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-const Header = () => {
+const Header = ({ cartCount }) => {
   return (
     <div
       className="flex flex-row justify-between w-full border-b-2"
@@ -12,7 +12,7 @@ const Header = () => {
       </Link>
       {""}
       <Link className="mx-10" href={"/cart"}>
-        View Cart
+        {`View Cart (${cartCount})`}
       </Link>
     </div>
   );

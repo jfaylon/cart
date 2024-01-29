@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const AddToCartButton = ({ product }) => {
+const AddToCartButton = ({ product, setCartCount }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [added, setAdded] = useState(false);
 
@@ -22,6 +22,10 @@ const AddToCartButton = ({ product }) => {
         }
       );
       if (response.data) {
+        const count = response.data.reduce((acc, item) => {
+          return acc + item.quantity;
+        }, 0);
+        setCartCount(count);
         setAdded(true);
         setTimeout(() => {
           setAdded(false);
