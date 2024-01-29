@@ -16,7 +16,7 @@ const CartItem = ({ item, updateCart }) => {
 
       if (response.status === 200) {
         const cartItem = response.data.find((cartItem) => {
-          return cartItem.quantity;
+          return cartItem.id === item.id;
         });
         setQuantity(cartItem?.quantity || 0);
         updateCart();
