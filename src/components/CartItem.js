@@ -18,7 +18,7 @@ const CartItem = ({ item, updateCart }) => {
         const cartItem = response.data.find((cartItem) => {
           return cartItem.quantity;
         });
-        setQuantity(cartItem.quantity);
+        setQuantity(cartItem?.quantity || 0);
         updateCart();
       } else {
         console.error("Failed to update quantity");
