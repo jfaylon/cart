@@ -57,6 +57,7 @@ $ npm run test
 - Node v18.17.1 and NextJS 14.1.0 were used in developing the application. There is no guarantee that it will work for versions other than the ones mentioned.
 - Please use `127.0.0.1` instead of localhost for the creation of the cookie. It is a known issue that the cookie is not created when using `localhost`.
 - The default port is 3000. There are no changes in port as the workaround for setting the port is hard coded in the package.json. Ideally the port should be modifiable via environment variables.
+- For state management, Props drilling was used because of the nature of the components. The components are not complex enough to merit a Context API or Redux. In line with this, if the use cases permit, the application can be refactored to use either Context API or Redux.
 
 ## Possible Improvements
 - Better error handling
